@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Person } from '../../../types';
 import { Link, useParams } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
 
 type Props = {
   person: Person;
@@ -9,11 +10,17 @@ type Props = {
 
 export const PersonLink: React.FC<Props> = ({ person, people }) => {
   const { personSlug } = useParams();
-  const selectedPerson = people.find(p => p.slug === personSlug);
+  
+  const selectedPerson = useMemo(() => {
+    return people.find(p => p.slug === personSlug);
+  }, [personSlug, people]);
 
-  const getPersonByName = (name: string | null) => {
-    return people.find(p => p.name === name);
-  };
+  const getPersonByName = useCallback(
+    (name: string | null) => {
+      return people.find(p => p.name === name);
+    },
+    [people]
+  );
 
   const mother = getPersonByName(person.motherName);
   const father = getPersonByName(person.fatherName);

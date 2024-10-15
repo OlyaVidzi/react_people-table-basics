@@ -1,12 +1,11 @@
 import { Loader } from '../../components/Loader';
-import peopleData from '../../../public/api/people.json';
 import { useEffect, useState } from 'react';
 import { Person } from '../../types';
 import { getPeople } from '../../api';
 import { PersonLink } from '../../components/Loader/PersonLink/PersonLink';
 
 export const People = () => {
-  const [people, setPeople] = useState<Person[]>(peopleData);
+  const [people, setPeople] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMesssage] = useState<boolean>(false);
 
